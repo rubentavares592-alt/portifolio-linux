@@ -1,0 +1,40 @@
+===== RELAT├ôRIO DE AUDITORIA ÔÇö CVTECH Lda. =====
+Data: Wed Oct 21 07:58:25 -01 2026
+--- ESTRUTURA ---
+/home/rubentavares/empresa
+Ôö£ÔöÇÔöÇ README.md
+Ôö£ÔöÇÔöÇ financas
+Ôöé┬á┬á Ôö£ÔöÇÔöÇ backup
+Ôöé┬á┬á Ôöé┬á┬á ÔööÔöÇÔöÇ orcamento_2026.bak
+Ôöé┬á┬á ÔööÔöÇÔöÇ orcamento_2026.txt
+Ôö£ÔöÇÔöÇ rh
+Ôöé┬á┬á Ôö£ÔöÇÔöÇ arquivo_2026
+Ôöé┬á┬á Ôöé┬á┬á ÔööÔöÇÔöÇ relatorio_jan.txt
+Ôöé┬á┬á Ôö£ÔöÇÔöÇ contrato_alice_v1.txt
+Ôöé┬á┬á Ôö£ÔöÇÔöÇ relatorio_fev.txt
+Ôöé┬á┬á ÔööÔöÇÔöÇ relatorio_mar.txt
+ÔööÔöÇÔöÇ ti
+    Ôö£ÔöÇÔöÇ acessos.log
+    Ôö£ÔöÇÔöÇ config.log
+    Ôö£ÔöÇÔöÇ deploy.sh
+    ÔööÔöÇÔöÇ erros.log
+
+6 directories, 11 files
+--- ERROS NOS LOGS DE TI ---
+2026-10-12 08:05 ERRO falha de conex├úo ├á base de dados
+2026-10-12 08:15 ERRO timeout na API REST ap├│s 30s
+2026-10-12 08:25 ERRO autentica├º├úo falhou para o utilizador admin
+2026-10-12 08:26 ERRO autentica├º├úo falhou para o utilizador admin
+2026-10-12 08:27 ERRO autentica├º├úo falhou para o utilizador root
+2026-10-12 08:50 ERRO servi├ºo de email n├úo responde
+Total de erros: 6
+--- CREDENCIAIS EM TEXTO CLARO ---
+/home/rubentavares/empresa/ti/config.log:6:DB_PASSWORD=CvTech2026!
+/home/rubentavares/empresa/ti/config.log:7:# Pol├¡tica: a password deve ter pelo menos 12 caracteres
+/home/rubentavares/empresa/ti/config.log:9:smtp_password=Email#2026
+/home/rubentavares/empresa/ti/deploy.sh:5:Password="Deploy#2026"
+--- IPs COM MAIS FALHAS DE LOGIN ---
+      6 ip=203.0.113.7
+      2 ip=198.51.100.23
+      1 ip=192.0.2.44
+      1 ip=10.0.0.12
