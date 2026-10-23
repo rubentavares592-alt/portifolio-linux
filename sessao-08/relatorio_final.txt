@@ -1,3 +1,215 @@
+rubentavares@LAPTOP-MDVICK7D:~$ cd ~ && ls *_s8.sh
+setup_s8.sh  verifica_s8.sh
+rubentavares@LAPTOP-MDVICK7D:~$ bash setup_s8.sh
+A pasta /home/rubentavares/desafio_final já existe. Para recomeçar do zero: rm -ri /home/rubentavares/desafio_final
+rubentavares@LAPTOP-MDVICK7D:~$ pkill -9 -f desafio_final/ferramentas/indexador; sleep 1
+rubentavares@LAPTOP-MDVICK7D:~$ rm -rf ~/desafio_final
+rubentavares@LAPTOP-MDVICK7D:~$ sudo userdel -r auditor 2>/dev/null; sudo groupdel auditores 2>/dev/null
+[sudo: authenticate] Password:
+rubentavares@LAPTOP-MDVICK7D:~$ cd ~ && ls *_s8.sh
+setup_s8.sh  verifica_s8.sh
+rubentavares@LAPTOP-MDVICK7D:~$ bash setup_s8.sh
+Desafio final pronto em /home/rubentavares/desafio_final
+Lê o enunciado e começa pela Missão 1. Boa sorte!
+rubentavares@LAPTOP-MDVICK7D:~$ bash verifica_s8.sh
+===== Verificação do Desafio Final — rubentavares =====
+  [  ]  Missão 1 — Explorar: chave da nota oculta no relatório final
+  [  ]  Missão 2 — Filtrar: chave da linha CRITICO no relatório final
+  [  ]  Missão 3 — Permissões: relatorio_rh.txt com 640 (atual: 0) e chave no relatório
+  [  ]  Missão 4 — Contas: grupo auditores e conta auditor (pasta pessoal, bash, no grupo)
+  [  ]  Missão 5 — Processos: indexador terminado com SIGTERM e chave no relatório
+  [  ]  Missão 6 — Cofre: backup decifrado em cofre/restaurado e chave no relatório
+Resultado: 0/6 missões concluídas
+rubentavares@LAPTOP-MDVICK7D:~$ cd ~/desafio_final
+rubentavares@LAPTOP-MDVICK7D:~/desafio_final$ tree arquivo
+arquivo
+└── 2026
+    ├── q1
+    │   ├── financas
+    │   │   └── relatorio.txt
+    │   ├── rh
+    │   │   └── relatorio.txt
+    │   └── ti
+    │       └── relatorio.txt
+    ├── q2
+    │   ├── financas
+    │   │   └── relatorio.txt
+    │   ├── rh
+    │   │   └── relatorio.txt
+    │   └── ti
+    │       └── relatorio.txt
+    └── q3
+        ├── financas
+        │   └── relatorio.txt
+        ├── rh
+        │   └── relatorio.txt
+        └── ti
+            └── relatorio.txt
+
+14 directories, 9 files
+rubentavares@LAPTOP-MDVICK7D:~/desafio_final$ find ~/desafio_final/arquivo -type f -name ".*"
+/home/rubentavares/desafio_final/arquivo/2026/q2/ti/.nota_do_administrador
+rubentavares@LAPTOP-MDVICK7D:~/desafio_final$ cat ~/desafio_final/arquivo/2026/q2/ti/.nota_do_administrador
+Nota do administrador anterior.
+Missão 1 concluída — chave: C1-5E6FAC
+rubentavares@LAPTOP-MDVICK7D:~/desafio_final$ echo "== Missão 1 ==" >> ~/desafio_final/relatorio_final.txt
+rubentavares@LAPTOP-MDVICK7D:~/desafio_final$ echo "C1-5E6FAC" >>
+ ~/desafio_final/relatorio_final.txt
+rubentavares@LAPTOP-MDVICK7D:~/desafio_final$ echo "Comando: find ~/desafio_final/arquivo -type f -name \".*\"" >> ~/desafio_final/relatorio_final.txt
+rubentavares@LAPTOP-MDVICK7D:~/desafio_final$ wc -l ~/desafio_final/logs/servidor.log
+301 /home/rubentavares/desafio_final/logs/servidor.log
+rubentavares@LAPTOP-MDVICK7D:~/desafio_final$ head -n 5 ~/desafio_final/logs/servidor.log
+2026-10-26 08:01:07 INFO verificação periódica concluída
+2026-10-26 08:02:14 INFO verificação periódica concluída
+2026-10-26 08:03:21 WARN disco a 73% de capacidade
+2026-10-26 08:04:28 INFO verificação periódica concluída
+2026-10-26 08:05:35 INFO verificação periódica concluída
+rubentavares@LAPTOP-MDVICK7D:~/desafio_final$ grep ERRO ~/desafio_final/logs/servidor.log | wc -l
+42
+rubentavares@LAPTOP-MDVICK7D:~/desafio_final$ grep CRITICO ~/desafio_final/logs/servidor.log
+2026-10-26 11:07:42 CRITICO integridade do arquivo verificada — chave: C2-921FCF
+rubentavares@LAPTOP-MDVICK7D:~/desafio_final$ echo "== Missão 2 ==" >> ~/desafio_final/relatorio_final.txt
+rubentavares@LAPTOP-MDVICK7D:~/desafio_final$ echo "C2-XXXXXX" >> ~/desafio_final/relatorio_final.txt
+rubentavares@LAPTOP-MDVICK7D:~/desafio_final$ echo "C2-921FCFX" >
+> ~/desafio_final/relatorio_final.txt
+rubentavares@LAPTOP-MDVICK7D:~/desafio_final$ echo "C2-921FCF" >>
+ ~/desafio_final/relatorio_final.txt
+rubentavares@LAPTOP-MDVICK7D:~/desafio_final$ echo "Comando: grep CRITICO ~/desafio_final/logs/servidor.log" >> ~/desafio_final/relatorio_final.txt
+rubentavares@LAPTOP-MDVICK7D:~/desafio_final$ echo "Total: 301 Comando: wc -l ~/desafio_final/logs/servidor.log" >> ~/desafio_final/relatorio_final.txt
+rubentavares@LAPTOP-MDVICK7D:~/desafio_final$ echo "ERRO: 42 Comando: grep ERRO ~/desafio_final/logs/servidor.log | wc -l" >> ~/desafio_final/relatorio_final.txt
+rubentavares@LAPTOP-MDVICK7D:~/desafio_final$ ls -l ~/desafio_final/docs/
+total 4
+---------- 1 rubentavares rubentavares 133 Oct 23 10:19 relatorio_rh.txt
+rubentavares@LAPTOP-MDVICK7D:~/desafio_final$ cat ~/desafio_final/docs/relatorio_rh.txt
+cat: /home/rubentavares/desafio_final/docs/relatorio_rh.txt: Permission denied
+rubentavares@LAPTOP-MDVICK7D:~/desafio_final$ chmod 640 ~/desafio_final/docs/relatorio_rh.txt
+rubentavares@LAPTOP-MDVICK7D:~/desafio_final$ ls -l ~/desafio_final/docs/
+total 4
+-rw-r----- 1 rubentavares rubentavares 133 Oct 23 10:19 relatorio_rh.txt
+rubentavares@LAPTOP-MDVICK7D:~/desafio_final$ cat ~/desafio_final/docs/relatorio_rh.txt
+Relatório confidencial de RH (dados fictícios)
+Missão 3 concluída — chave: C3-09BA25
+Password do cofre (Missão 6): Cofre#2026
+rubentavares@LAPTOP-MDVICK7D:~/desafio_final$ echo "== Missão 3 ==" >> ~/desafio_final/relatorio_final.txt
+rubentavares@LAPTOP-MDVICK7D:~/desafio_final$ echo "C3-09BA25" >>
+ ~/desafio_final/relatorio_final.txt
+rubentavares@LAPTOP-MDVICK7D:~/desafio_final$ echo "Comando: chmod 640 ~/desafio_final/docs/relatorio_rh.txt" >> ~/desafio_final/relatorio_final.txt
+rubentavares@LAPTOP-MDVICK7D:~/desafio_final$ sudo groupadd auditores
+[sudo: authenticate] Password:
+rubentavares@LAPTOP-MDVICK7D:~/desafio_final$ sudo useradd -m -s /bin/bash -G auditores auditor
+rubentavares@LAPTOP-MDVICK7D:~/desafio_final$ id auditor
+uid=1001(auditor) gid=1005(auditor) groups=1005(auditor),1004(auditores)
+rubentavares@LAPTOP-MDVICK7D:~/desafio_final$ getent passwd auditor
+auditor:x:1001:1005::/home/auditor:/bin/bash
+rubentavares@LAPTOP-MDVICK7D:~/desafio_final$ echo "== Missão 4 ==" >> ~/desafio_final/relatorio_final.txt
+rubentavares@LAPTOP-MDVICK7D:~/desafio_final$ echo "Comandos: sudo groupadd auditores; sudo useradd -m -s /bin/bash -G auditores auditor" >> ~/desafio_final/relatorio_final.txt
+rubentavares@LAPTOP-MDVICK7D:~/desafio_final$ id auditor >> ~/desafio_final/relatorio_final.txt
+rubentavares@LAPTOP-MDVICK7D:~/desafio_final$ ps aux --sort=-%cpu | head -n 5
+USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+rubenta+     843 99.9  0.0   4948  3768 pts/0    R    10:19  26:55 /bin/bash /home/rubentavares/desafio_final/ferramentas/indexador.sh
+root           1  0.0  0.4  24160 15476 ?        Ss   10:06   0:01 /sbin/init
+root         280  0.0  0.8 123480 32768 ?        Ssl  10:06   0:00 /usr/bin/python3 /usr/share/unattended-upgrades/unattended-upgrade-shutdown --wait-for-signal
+root         145  0.0  0.7  44112 29824 ?        Ss   10:06   0:00 /usr/bin/python3 /usr/bin/networkd-dispatcher --run-startup-triggers
+rubentavares@LAPTOP-MDVICK7D:~/desafio_final$ pgrep -f desafio_final/ferramentas/indexador
+843
+rubentavares@LAPTOP-MDVICK7D:~/desafio_final$ kill <843>
+-bash: syntax error near unexpected token `843'
+rubentavares@LAPTOP-MDVICK7D:~/desafio_final$ sleep 2
+rubentavares@LAPTOP-MDVICK7D:~/desafio_final$ cat ~/desafio_final/logs/indexador.log
+cat: /home/rubentavares/desafio_final/logs/indexador.log: No such file or directory
+rubentavares@LAPTOP-MDVICK7D:~/desafio_final$ ps aux --sort=-%cpu | head -n 5
+USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+rubenta+     843 99.9  0.0   4948  3768 pts/0    R    10:19  34:48 /bin/bash /home/rubentavares/desafio_final/ferramentas/indexador.sh
+root           1  0.0  0.4  24160 15480 ?        Ss   10:06   0:01 /sbin/init
+root         280  0.0  0.8 123480 32768 ?        Ssl  10:06   0:00 /usr/bin/python3 /usr/share/unattended-upgrades/unattended-upgrade-shutdown --wait-for-signal
+root         145  0.0  0.7  44112 29824 ?        Ss   10:06   0:00 /usr/bin/python3 /usr/bin/networkd-dispatcher --run-startup-triggers
+rubentavares@LAPTOP-MDVICK7D:~/desafio_final$ pgrep -af desafio_final/ferramentas/indexador
+843 /bin/bash /home/rubentavares/desafio_final/ferramentas/indexador.sh
+rubentavares@LAPTOP-MDVICK7D:~/desafio_final$ bash ~/desafio_final/ferramentas/reinicia_indexador.sh
+Indexador lançado de novo.
+rubentavares@LAPTOP-MDVICK7D:~/desafio_final$ kill -15 <843>
+-bash: syntax error near unexpected token `843'
+rubentavares@LAPTOP-MDVICK7D:~/desafio_final$ kill <PID>
+-bash: syntax error near unexpected token `newline'
+rubentavares@LAPTOP-MDVICK7D:~/desafio_final$ kill -15 843
+rubentavares@LAPTOP-MDVICK7D:~/desafio_final$ sleep 2
+rubentavares@LAPTOP-MDVICK7D:~/desafio_final$ cat ~/desafio_final/logs/indexador.log
+Indexador terminado corretamente — chave: C5-D0F57A
+rubentavares@LAPTOP-MDVICK7D:~/desafio_final$ echo "== Missão 5 ==" >> ~/desafio_final/relatorio_final.txt
+rubentavares@LAPTOP-MDVICK7D:~/desafio_final$ echo "C5-D0F57A" >>
+ ~/desafio_final/relatorio_final.txt
+rubentavares@LAPTOP-MDVICK7D:~/desafio_final$ echo "Comando: kill -15 <PID>" >> ~/desafio_final/relatorio_final.txt
+rubentavares@LAPTOP-MDVICK7D:~/desafio_final$ cd ~/desafio_final
+rubentavares@LAPTOP-MDVICK7D:~/desafio_final$ openssl enc -d -aes-256-cbc -pbkdf2 -in cofre/cofre.tar.gz.enc -out cofre/cofre.tar.gz
+enter AES-256-CBC decryption password:
+rubentavares@LAPTOP-MDVICK7D:~/desafio_final$ tar -tzf cofre/cofre.tar.gz
+cofre_cvtech/
+cofre_cvtech/chave.txt
+rubentavares@LAPTOP-MDVICK7D:~/desafio_final$ mkdir -p cofre/restaurado
+rubentavares@LAPTOP-MDVICK7D:~/desafio_final$ tar -xzf cofre/cofre.tar.gz -C cofre/restaurado
+rubentavares@LAPTOP-MDVICK7D:~/desafio_final$ cat cofre/restaurado/cofre_cvtech/chave.txt
+Cofre aberto com sucesso.
+Missão 6 concluída — chave: C6-1DCD89
+rubentavares@LAPTOP-MDVICK7D:~/desafio_final$ echo "== Missão 6 ==" >> ~/desafio_final/relatorio_final.txt
+rubentavares@LAPTOP-MDVICK7D:~/desafio_final$ echo "C6-XXXXXX" >> ~/desafio_final/relatorio_final.txt
+rubentavares@LAPTOP-MDVICK7D:~/desafio_final$ echo "C6-1DCD89" >>
+ ~/desafio_final/relatorio_final.txt
+rubentavares@LAPTOP-MDVICK7D:~/desafio_final$ echo "Comandos: openssl enc -d -aes-256-cbc -pbkdf2 ...; tar -xzf ... -C cofre/restaurado (password obtida na Missão 3)" >> ~/desafio_final/relatorio_final.txt
+rubentavares@LAPTOP-MDVICK7D:~/desafio_final$ bash ~/verifica_s8.sh
+===== Verificação do Desafio Final — rubentavares =====
+  [OK]  Missão 1 — Explorar: chave da nota oculta no relatório final
+  [OK]  Missão 2 — Filtrar: chave da linha CRITICO no relatório final
+  [OK]  Missão 3 — Permissões: relatorio_rh.txt com 640 (atual: 640) e chave no relatório
+  [OK]  Missão 4 — Contas: grupo auditores e conta auditor (pasta pessoal, bash, no grupo)
+  [  ]  Missão 5 — Processos: indexador terminado com SIGTERM e chave no relatório
+  [OK]  Missão 6 — Cofre: backup decifrado em cofre/restaurado e chave no relatório
+Resultado: 5/6 missões concluídas
+rubentavares@LAPTOP-MDVICK7D:~/desafio_final$ bash ~/verifica_s8.sh > ~/desafio_final/verificacao_final.txt
+rubentavares@LAPTOP-MDVICK7D:~/desafio_final$ cat ~/desafio_final/relatorio_final.txt
 == Missão 1 ==
-C1-XXXXXX
-Comando: ...
+C1-5E6FAC
+Comando: find ~/desafio_final/arquivo -type f -name ".*"
+== Missão 2 ==
+C2-XXXXXX
+C2-921FCFX
+C2-921FCF
+Comando: grep CRITICO ~/desafio_final/logs/servidor.log
+Total: 301 Comando: wc -l ~/desafio_final/logs/servidor.log
+ERRO: 42 Comando: grep ERRO ~/desafio_final/logs/servidor.log | wc -l
+== Missão 3 ==
+C3-09BA25
+Comando: chmod 640 ~/desafio_final/docs/relatorio_rh.txt
+== Missão 4 ==
+Comandos: sudo groupadd auditores; sudo useradd -m -s /bin/bash -G auditores auditor
+uid=1001(auditor) gid=1005(auditor) groups=1005(auditor),1004(auditores)
+== Missão 5 ==
+C5-D0F57A
+Comando: kill -15 <PID>
+== Missão 6 ==
+C6-XXXXXX
+C6-1DCD89
+Comandos: openssl enc -d -aes-256-cbc -pbkdf2 ...; tar -xzf ... -C cofre/restaurado (password obtida na Missão 3)
+rubentavares@LAPTOP-MDVICK7D:~/desafio_final$ cat ~/desafio_final/relatorio_final.txt
+== Missão 1 ==
+C1-5E6FAC
+Comando: find ~/desafio_final/arquivo -type f -name ".*"
+== Missão 2 ==
+C2-XXXXXX
+C2-921FCFX
+C2-921FCF
+Comando: grep CRITICO ~/desafio_final/logs/servidor.log
+Total: 301 Comando: wc -l ~/desafio_final/logs/servidor.log
+ERRO: 42 Comando: grep ERRO ~/desafio_final/logs/servidor.log | wc -l
+== Missão 3 ==
+C3-09BA25
+Comando: chmod 640 ~/desafio_final/docs/relatorio_rh.txt
+== Missão 4 ==
+Comandos: sudo groupadd auditores; sudo useradd -m -s /bin/bash -G auditores auditor
+uid=1001(auditor) gid=1005(auditor) groups=1005(auditor),1004(auditores)
+== Missão 5 ==
+C5-D0F57A
+Comando: kill -15 <PID>
+== Missão 6 ==
+C6-XXXXXX
+C6-1DCD89
+Comandos: openssl enc -d -aes-256-cbc -pbkdf2 ...; tar -xzf ... -C cofre/restaurado (password obtida na Missão 3)
