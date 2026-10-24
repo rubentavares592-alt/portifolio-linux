@@ -1,0 +1,183 @@
+rubentavares@LAPTOP-MDVICK7D:~$ whoami
+rubentavares
+rubentavares@LAPTOP-MDVICK7D:~$ id
+uid=1000(rubentavares) gid=1000(rubentavares) groups=1000(rubentavares),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),100(users)
+rubentavares@LAPTOP-MDVICK7D:~$ sudo whoami
+[sudo: authenticate] Password:
+root
+rubentavares@LAPTOP-MDVICK7D:~$ sudo groupadd rh
+groupadd: group 'rh' already exists
+rubentavares@LAPTOP-MDVICK7D:~$ sudo groupadd ti
+groupadd: group 'ti' already exists
+rubentavares@LAPTOP-MDVICK7D:~$ sudo groupadd financas
+groupadd: group 'financas' already exists
+rubentavares@LAPTOP-MDVICK7D:~$ grep -E '^(rh|ti|financas):' /etc/group
+rh:x:1001:
+ti:x:1002:
+financas:x:1003:
+rubentavares@LAPTOP-MDVICK7D:~$ sudo useradd -m -s /bin/bash -c "Alice Fortes" alice
+rubentavares@LAPTOP-MDVICK7D:~$ sudo useradd -m -s /bin/bash -c "Bruno Lima" bruno
+rubentavares@LAPTOP-MDVICK7D:~$ sudo useradd -m -s /bin/bash -c "Carla Santos" carla
+rubentavares@LAPTOP-MDVICK7D:~$ sudo useradd estagiario
+rubentavares@LAPTOP-MDVICK7D:~$ tail -n 4 /etc/passwd
+alice:x:1002:1006:Alice Fortes:/home/alice:/bin/bash
+bruno:x:1003:1007:Bruno Lima:/home/bruno:/bin/bash
+carla:x:1004:1008:Carla Santos:/home/carla:/bin/bash
+estagiario:x:1005:1009::/home/estagiario:/bin/sh
+rubentavares@LAPTOP-MDVICK7D:~$ ls /home
+alice  auditor  bruno  carla  rubentavares
+rubentavares@LAPTOP-MDVICK7D:~$ sudo passwd alice
+New password:
+Retype new password:
+passwd: password updated successfully
+rubentavares@LAPTOP-MDVICK7D:~$ sudo passwd bruno
+New password:
+Retype new password:
+passwd: password updated successfully
+rubentavares@LAPTOP-MDVICK7D:~$ sudo passwd carla
+New password:
+Retype new password:
+passwd: password updated successfully
+rubentavares@LAPTOP-MDVICK7D:~$ sudo usermod -aG rh alice
+rubentavares@LAPTOP-MDVICK7D:~$ sudo usermod -aG ti bruno
+rubentavares@LAPTOP-MDVICK7D:~$ sudo usermod -aG financas carla
+rubentavares@LAPTOP-MDVICK7D:~$ sudo usermod -aG sudo bruno
+rubentavares@LAPTOP-MDVICK7D:~$ getent group sudo
+sudo:x:27:rubentavares,bruno
+rubentavares@LAPTOP-MDVICK7D:~$ id alice
+uid=1002(alice) gid=1006(alice) groups=1006(alice),1001(rh)
+rubentavares@LAPTOP-MDVICK7D:~$ groups bruno
+bruno : bruno sudo ti
+rubentavares@LAPTOP-MDVICK7D:~$ groups carla
+carla : carla financas
+rubentavares@LAPTOP-MDVICK7D:~$ grep -E '^(rh|ti|financas|sudo):' /etc/group
+sudo:x:27:rubentavares,bruno
+rh:x:1001:alice
+ti:x:1002:bruno
+financas:x:1003:carla
+rubentavares@LAPTOP-MDVICK7D:~$ sudo usermod -aG rh,ti estagiario
+rubentavares@LAPTOP-MDVICK7D:~$ groups estagiario
+estagiario : estagiario rh ti
+rubentavares@LAPTOP-MDVICK7D:~$ sudo usermod -G financas estagiario
+rubentavares@LAPTOP-MDVICK7D:~$  groups estagiario
+estagiario : estagiario financas
+rubentavares@LAPTOP-MDVICK7D:~$ sudo su - alice
+Welcome to Ubuntu 26.04.1 LTS (GNU/Linux 6.18.54.1-microsoft-standard-WSL2 x86_64)
+
+ * Documentation:  https://docs.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/pro
+
+ System information as of Sat Oct 24 13:43:46 -01 2026
+
+  System load:  0.01                Processes:             37
+  Usage of /:   0.2% of 1006.85GB   Users logged in:       0
+  Memory usage: 9%                  IPv4 address for eth0: 172.27.10.59
+  Swap usage:   0%
+
+  => /usr/lib/linux-tools/6.18.54.1-microsoft-standard-WSL2 is using 100.0% of
+     96MB
+
+ * Canonical Workshop gives developers fast, composable, reproducible, and
+   secure developer environments that are perfect for agentic workflows.
+
+   https://ubuntu.com/workshop
+
+This message is shown once a day. To disable it please create the
+/home/alice/.hushlogin file.
+alice@LAPTOP-MDVICK7D:~$ whoami && groups
+alice
+alice rh
+alice@LAPTOP-MDVICK7D:~$ sudo -l
+sudo: Sorry, user alice may not run sudo on LAPTOP-MDVICK7D.
+alice@LAPTOP-MDVICK7D:~$ exit
+logout
+rubentavares@LAPTOP-MDVICK7D:~$ sudo su - bruno
+Welcome to Ubuntu 26.04.1 LTS (GNU/Linux 6.18.54.1-microsoft-standard-WSL2 x86_64)
+
+ * Documentation:  https://docs.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/pro
+
+ System information as of Sat Oct 24 13:48:29 -01 2026
+
+  System load:  0.05                Processes:             36
+  Usage of /:   0.2% of 1006.85GB   Users logged in:       0
+  Memory usage: 9%                  IPv4 address for eth0: 172.27.10.59
+  Swap usage:   0%
+
+  => /usr/lib/linux-tools/6.18.54.1-microsoft-standard-WSL2 is using 100.0% of
+     96MB
+
+ * Canonical Workshop gives developers fast, composable, reproducible, and
+   secure developer environments that are perfect for agentic workflows.
+
+   https://ubuntu.com/workshop
+
+This message is shown once a day. To disable it please create the
+/home/bruno/.hushlogin file.
+bruno@LAPTOP-MDVICK7D:~$ sudo -l
+[sudo: authenticate] Password:
+User bruno may run the following commands on LAPTOP-MDVICK7D:
+    (ALL : ALL) ALL
+bruno@LAPTOP-MDVICK7D:~$ exit
+logout
+rubentavares@LAPTOP-MDVICK7D:~$ ^C
+rubentavares@LAPTOP-MDVICK7D:~$ grep '/bin/bash' /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+rubentavares:x:1000:1000::/home/rubentavares:/bin/bash
+auditor:x:1001:1005::/home/auditor:/bin/bash
+alice:x:1002:1006:Alice Fortes:/home/alice:/bin/bash
+bruno:x:1003:1007:Bruno Lima:/home/bruno:/bin/bash
+carla:x:1004:1008:Carla Santos:/home/carla:/bin/bash
+rubentavares@LAPTOP-MDVICK7D:~$ grep -c 'nologin' /etc/passwd
+23
+rubentavares@LAPTOP-MDVICK7D:~$ getent group sudo rh ti financas
+sudo:x:27:rubentavares,bruno
+rh:x:1001:alice
+ti:x:1002:bruno
+financas:x:1003:carla,estagiario
+rubentavares@LAPTOP-MDVICK7D:~$ id estagiario
+uid=1005(estagiario) gid=1009(estagiario) groups=1009(estagiario),1003(financas)
+rubentavares@LAPTOP-MDVICK7D:~$ sudo userdel -r estagiario
+userdel: estagiario mail spool (/var/mail/estagiario) not found
+userdel: estagiario home directory (/home/estagiario) not found
+rubentavares@LAPTOP-MDVICK7D:~$ id estagiario
+id: 'estagiario': no such user
+rubentavares@LAPTOP-MDVICK7D:~$ mkdir -p ~/relatorios/sessao4 && cd ~/relatorios/sessao4
+rubentavares@LAPTOP-MDVICK7D:~/relatorios/sessao4$ echo '===== AUDITORIA DE CONTAS — CVTECH Lda. =====' > auditoria_contas.txt
+rubentavares@LAPTOP-MDVICK7D:~/relatorios/sessao4$  echo "Data: $(date)" >> auditoria_contas.txt
+rubentavares@LAPTOP-MDVICK7D:~/relatorios/sessao4$  echo '--- CONTAS COM SHELL BASH ---' >> auditoria_contas.txt
+rubentavares@LAPTOP-MDVICK7D:~/relatorios/sessao4$ grep '/bin/bash' /etc/passwd >> auditoria_contas.txt
+rubentavares@LAPTOP-MDVICK7D:~/relatorios/sessao4$ echo '--- ADMINISTRADORES E DEPARTAMENTOS ---' >> auditoria_contas.txt
+rubentavares@LAPTOP-MDVICK7D:~/relatorios/sessao4$ getent group sudo rh ti financas >> auditoria_contas.txt
+rubentavares@LAPTOP-MDVICK7D:~/relatorios/sessao4$ cat auditoria_contas.txt
+===== AUDITORIA DE CONTAS — CVTECH Lda. =====
+Data: Sat Oct 24 17:00:47 -01 2026
+--- CONTAS COM SHELL BASH ---
+root:x:0:0:root:/root:/bin/bash
+rubentavares:x:1000:1000::/home/rubentavares:/bin/bash
+auditor:x:1001:1005::/home/auditor:/bin/bash
+alice:x:1002:1006:Alice Fortes:/home/alice:/bin/bash
+bruno:x:1003:1007:Bruno Lima:/home/bruno:/bin/bash
+carla:x:1004:1008:Carla Santos:/home/carla:/bin/bash
+--- ADMINISTRADORES E DEPARTAMENTOS ---
+sudo:x:27:rubentavares,bruno
+rh:x:1001:alice
+ti:x:1002:bruno
+financas:x:1003:carla
+rubentavares@LAPTOP-MDVICK7D:~/relatorios/sessao4$ cat ~/relatorios/sessao4/auditoria_contas.txt
+===== AUDITORIA DE CONTAS — CVTECH Lda. =====
+Data: Sat Oct 24 17:00:47 -01 2026
+--- CONTAS COM SHELL BASH ---
+root:x:0:0:root:/root:/bin/bash
+rubentavares:x:1000:1000::/home/rubentavares:/bin/bash
+auditor:x:1001:1005::/home/auditor:/bin/bash
+alice:x:1002:1006:Alice Fortes:/home/alice:/bin/bash
+bruno:x:1003:1007:Bruno Lima:/home/bruno:/bin/bash
+carla:x:1004:1008:Carla Santos:/home/carla:/bin/bash
+--- ADMINISTRADORES E DEPARTAMENTOS ---
+sudo:x:27:rubentavares,bruno
+rh:x:1001:alice
+ti:x:1002:bruno
+financas:x:1003:carla
