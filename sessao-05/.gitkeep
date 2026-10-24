@@ -1,0 +1,205 @@
+rubentavares@LAPTOP-MDVICK7D:~$ nano prepara_s5.sh
+rubentavares@LAPTOP-MDVICK7D:~$ less prepara_s5.sh
+rubentavares@LAPTOP-MDVICK7D:~$ sudo bash prepara_s5.sh
+[sudo: authenticate] Password:
+sudo: Authentication failed, try again.
+[sudo: authenticate] Password:
+Conta já existe: alice
+Conta já existe: bruno
+Conta já existe: carla
+
+Estado das contas da CVTECH:
+uid=1002(alice) gid=1006(alice) groups=1006(alice),1001(rh)
+uid=1003(bruno) gid=1007(bruno) groups=1007(bruno),27(sudo),1002(ti)
+uid=1004(carla) gid=1008(carla) groups=1008(carla),1003(financas)
+rubentavares@LAPTOP-MDVICK7D:~$ ls -l /etc/passwd /etc/shadow
+-rw-r--r-- 1 root root   1594 Oct 24 16:58 /etc/passwd
+-rw-r----- 1 root shadow 1110 Oct 24 16:58 /etc/shadow
+rubentavares@LAPTOP-MDVICK7D:~$ stat -c '%A %a %U:%G %n' /etc/passwd /etc/shadow
+-rw-r--r-- 644 root:root /etc/passwd
+-rw-r----- 640 root:shadow /etc/shadow
+rubentavares@LAPTOP-MDVICK7D:~$ sudo mkdir -p /srv/cvtech/{rh,ti,financas,publico}
+rubentavares@LAPTOP-MDVICK7D:~$ ls -l /srv/cvtech
+total 16
+drwxr-xr-x 2 root root 4096 Oct 24 17:54 financas
+drwxr-xr-x 2 root root 4096 Oct 24 17:54 publico
+drwxr-xr-x 2 root root 4096 Oct 24 17:54 rh
+drwxr-xr-x 2 root root 4096 Oct 24 17:54 ti
+rubentavares@LAPTOP-MDVICK7D:~$ sudo chgrp rh /srv/cvtech/rh
+rubentavares@LAPTOP-MDVICK7D:~$ sudo chgrp financas /srv/cvtech/financas
+rubentavares@LAPTOP-MDVICK7D:~$ sudo chown bruno:ti /srv/cvtech/ti
+rubentavares@LAPTOP-MDVICK7D:~$ sudo chmod 770 /srv/cvtech/rh /srv/cvtech/ti /srv/cvtech/financas
+rubentavares@LAPTOP-MDVICK7D:~$ sudo chmod 755 /srv/cvtech/publico
+rubentavares@LAPTOP-MDVICK7D:~$ ls -l /srv/cvtech
+total 16
+drwxrwx--- 2 root  financas 4096 Oct 24 17:54 financas
+drwxr-xr-x 2 root  root     4096 Oct 24 17:54 publico
+drwxrwx--- 2 root  rh       4096 Oct 24 17:54 rh
+drwxrwx--- 2 bruno ti       4096 Oct 24 17:54 ti
+rubentavares@LAPTOP-MDVICK7D:~$ sudo -u alice bash -c "echo 'Tabela salarial 2026 (dados fictícios)' > /srv/cvtech/rh/confidencial.txt
+> sudo -u alice bash -c "echo 'Tabela salarial 2026 (dados fictícios)' > /srv/cvtech/rh/confidencial.txt"
+> ^C
+rubentavares@LAPTOP-MDVICK7D:~$ sudo -u alice bash -c "echo 'Tabela salarial 2026 (dados fictícios)' > /srv/cvtech/rh/confidencial.txt"
+[sudo: authenticate] Password:
+rubentavares@LAPTOP-MDVICK7D:~$  sudo ls -l /srv/cvtech/rh
+total 4
+-rw-r--r-- 1 alice alice 40 Oct 24 18:27 confidencial.txt
+rubentavares@LAPTOP-MDVICK7D:~$ sudo -u alice chgrp rh /srv/cvtech/rh/confidencial.txt
+rubentavares@LAPTOP-MDVICK7D:~$ sudo -u alice chmod 640 /srv/cvtech/rh/confidencial.txt
+rubentavares@LAPTOP-MDVICK7D:~$ sudo ls -l /srv/cvtech/rh
+total 4
+-rw-r----- 1 alice rh 40 Oct 24 18:27 confidencial.txt
+rubentavares@LAPTOP-MDVICK7D:~$ sudo -u alice cat /srv/cvtech/rh/confidencial.txt
+Tabela salarial 2026 (dados fictícios)
+rubentavares@LAPTOP-MDVICK7D:~$ sudo -u carla cat /srv/cvtech/rh/confidencial.txt
+cat: /srv/cvtech/rh/confidencial.txt: Permission denied
+rubentavares@LAPTOP-MDVICK7D:~$ sudo -u carla ls /srv/cvtech/ti
+ls: cannot open directory '/srv/cvtech/ti': Permission denied
+rubentavares@LAPTOP-MDVICK7D:~$ sudo -u carla ls /srv/cvtech/publico
+rubentavares@LAPTOP-MDVICK7D:~$ sudo -u carla touch /srv/cvtech/publico/teste.txt
+touch: cannot touch '/srv/cvtech/publico/teste.txt': Permission denied
+rubentavares@LAPTOP-MDVICK7D:~$ echo "echo 'Olá da CVTECH'" > ~/ola.sh
+rubentavares@LAPTOP-MDVICK7D:~$ ls -l ~/ola.sh
+-rw-r--r-- 1 rubentavares rubentavares 22 Oct 24 18:35 /home/rubentavares/ola.sh
+rubentavares@LAPTOP-MDVICK7D:~$ ~/ola.sh
+-bash: /home/rubentavares/ola.sh: Permission denied
+rubentavares@LAPTOP-MDVICK7D:~$ chmod u+x ~/ola.sh
+rubentavares@LAPTOP-MDVICK7D:~$ ls -l ~/ola.sh
+-rwxr--r-- 1 rubentavares rubentavares 22 Oct 24 18:35 /home/rubentavares/ola.sh
+rubentavares@LAPTOP-MDVICK7D:~$ ~/ola.sh
+Olá da CVTECH
+rubentavares@LAPTOP-MDVICK7D:~$  sudo grep -E '^(alice|carla):' /etc/shadow
+[sudo: authenticate] Password:
+alice:$y$j9T$14wFRc/NHzQr.vIZplna61$3GamSRAM9HwMd3m0VOzUqh6EyXTA5rBntul1oX3BEsC:20750:0:99999:7:::
+carla:$y$j9T$pmK71Djf0Bg9Cpb05oxJ20$7S2QwKQFBgUFsHsgDF71yhv59/jBpcSThxzLWWYl.T8:20750:0:99999:7:::
+rubentavares@LAPTOP-MDVICK7D:~$  grep -E '^PASS_(MAX|MIN|WARN)' /etc/login.defs
+PASS_MAX_DAYS   99999
+PASS_MIN_DAYS   0
+PASS_WARN_AGE   7
+rubentavares@LAPTOP-MDVICK7D:~$ sudo chage -l carla
+Last password change                                    : Oct 24, 2026
+Password expires                                        : never
+Password inactive                                       : never
+Account expires                                         : never
+Minimum number of days between password change          : 0
+Maximum number of days between password change          : 99999
+Number of days of warning before password expires       : 7
+rubentavares@LAPTOP-MDVICK7D:~$  sudo chage -M 90 -W 7 -I 30 carla
+rubentavares@LAPTOP-MDVICK7D:~$ sudo chage -l carla
+Last password change                                    : Oct 24, 2026
+Password expires                                        : Jan 22, 2027
+Password inactive                                       : Feb 21, 2027
+Account expires                                         : never
+Minimum number of days between password change          : 0
+Maximum number of days between password change          : 90
+Number of days of warning before password expires       : 7
+rubentavares@LAPTOP-MDVICK7D:~$  sudo chage -d 0 carla
+rubentavares@LAPTOP-MDVICK7D:~$  sudo chage -l carla | head -n 3
+Last password change                                    : password must be changed
+Password expires                                        : password must be changed
+Password inactive                                       : password must be changed
+rubentavares@LAPTOP-MDVICK7D:~$ sudo passwd -l carla
+passwd: password changed.
+rubentavares@LAPTOP-MDVICK7D:~$  sudo passwd -S carla
+carla L 1970-01-01 0 90 7 30
+rubentavares@LAPTOP-MDVICK7D:~$  sudo passwd -u carla
+passwd: password changed.
+rubentavares@LAPTOP-MDVICK7D:~$ sudo passwd -S carla
+carla P 1970-01-01 0 90 7 30
+rubentavares@LAPTOP-MDVICK7D:~$  lastlog -u alice
+Command 'lastlog' not found, did you mean:
+  command 'lastlog2' from deb lastlog2 (2.41.3-3ubuntu2)
+Try: sudo apt install <deb name>
+rubentavares@LAPTOP-MDVICK7D:~$ sudo apt install lastlog2
+Installing:
+  lastlog2
+
+Installing dependencies:
+  liblastlog2-2  libpam-lastlog2  libpam-wtmpdb  libwtmpdb0  wtmpdb
+
+Summary:
+  Upgrading: 0, Installing: 6, Removing: 0, Not Upgrading: 31
+  Download size: 127 kB
+  Space needed: 404 kB / 1024 GB available
+
+Continue? [Y/n] y
+Get:1 http://archive.ubuntu.com/ubuntu resolute-updates/main amd64 liblastlog2-2 amd64 2.41.3-3ubuntu2.2 [27.4 kB]
+Get:2 http://archive.ubuntu.com/ubuntu resolute-updates/universe amd64 lastlog2 amd64 2.41.3-3ubuntu2.2 [28.6 kB]
+Get:3 http://archive.ubuntu.com/ubuntu resolute-updates/universe amd64 libpam-lastlog2 amd64 2.41.3-3ubuntu2.2 [27.8 kB]
+Get:4 http://archive.ubuntu.com/ubuntu resolute/universe amd64 libwtmpdb0 amd64 0.75.0-5ubuntu1 [11.9 kB]
+Get:5 http://archive.ubuntu.com/ubuntu resolute/universe amd64 libpam-wtmpdb amd64 0.75.0-5ubuntu1 [9544 B]
+Get:6 http://archive.ubuntu.com/ubuntu resolute/universe amd64 wtmpdb amd64 0.75.0-5ubuntu1 [21.6 kB]
+Fetched 127 kB in 1s (120 kB/s)
+Selecting previously unselected package liblastlog2-2:amd64.
+(Reading database ... 35914 files and directories currently installed.)
+Preparing to unpack .../0-liblastlog2-2_2.41.3-3ubuntu2.2_amd64.deb ...
+Unpacking liblastlog2-2:amd64 (2.41.3-3ubuntu2.2) ...
+Selecting previously unselected package lastlog2.
+Preparing to unpack .../1-lastlog2_2.41.3-3ubuntu2.2_amd64.deb ...
+Unpacking lastlog2 (2.41.3-3ubuntu2.2) ...
+Selecting previously unselected package libpam-lastlog2:amd64.
+Preparing to unpack .../2-libpam-lastlog2_2.41.3-3ubuntu2.2_amd64.deb ...
+Unpacking libpam-lastlog2:amd64 (2.41.3-3ubuntu2.2) ...
+Selecting previously unselected package libwtmpdb0:amd64.
+Preparing to unpack .../3-libwtmpdb0_0.75.0-5ubuntu1_amd64.deb ...
+Unpacking libwtmpdb0:amd64 (0.75.0-5ubuntu1) ...
+Selecting previously unselected package libpam-wtmpdb:amd64.
+Preparing to unpack .../4-libpam-wtmpdb_0.75.0-5ubuntu1_amd64.deb ...
+Unpacking libpam-wtmpdb:amd64 (0.75.0-5ubuntu1) ...
+Selecting previously unselected package wtmpdb.
+Preparing to unpack .../5-wtmpdb_0.75.0-5ubuntu1_amd64.deb ...
+Unpacking wtmpdb (0.75.0-5ubuntu1) ...
+Setting up liblastlog2-2:amd64 (2.41.3-3ubuntu2.2) ...
+Setting up libpam-lastlog2:amd64 (2.41.3-3ubuntu2.2) ...
+Setting up libwtmpdb0:amd64 (0.75.0-5ubuntu1) ...
+Setting up lastlog2 (2.41.3-3ubuntu2.2) ...
+Setting up libpam-wtmpdb:amd64 (0.75.0-5ubuntu1) ...
+Setting up wtmpdb (0.75.0-5ubuntu1) ...
+Converting wtmp login records into wtmpdb database ... done
+Created symlink '/etc/systemd/system/default.target.wants/wtmpdb-update-boot.service' → '/usr/lib/systemd/system/wtmpdb-update-boot.service'.
+Processing triggers for man-db (2.13.1-1build1) ...
+Processing triggers for libc-bin (2.43-2ubuntu2.4) ...
+rubentavares@LAPTOP-MDVICK7D:~$  lastlog -u alice
+Command 'lastlog' not found, did you mean:
+  command 'lastlog2' from deb lastlog2 (2.41.3-3ubuntu2)
+Try: sudo apt install <deb name>
+rubentavares@LAPTOP-MDVICK7D:~$ sudo apt install lastlog
+Error: Unable to locate package lastlog
+rubentavares@LAPTOP-MDVICK7D:~$  lastlog2 -u alice
+Username         Port     From                                       Latest
+alice                                                                **Never logged in**
+rubentavares@LAPTOP-MDVICK7D:~$  mkdir -p ~/relatorios/sessao5 && cd ~/relatorios/sessao5
+rubentavares@LAPTOP-MDVICK7D:~/relatorios/sessao5$  echo '===== AUDITORIA DE ACESSOS — CVTECH Lda. =====' > auditoria_acessos.txt
+rubentavares@LAPTOP-MDVICK7D:~/relatorios/sessao5$  echo "Data: $(date)" >> auditoria_acessos.txt
+rubentavares@LAPTOP-MDVICK7D:~/relatorios/sessao5$  echo '--- PASTAS DEPARTAMENTAIS ---' >> auditoria_acessos.txt
+rubentavares@LAPTOP-MDVICK7D:~/relatorios/sessao5$ ls -l /srv/cvtech >> auditoria_acessos.txt
+rubentavares@LAPTOP-MDVICK7D:~/relatorios/sessao5$ sudo ls -l /srv/cvtech/rh >> auditoria_acessos.txt
+rubentavares@LAPTOP-MDVICK7D:~/relatorios/sessao5$  echo '--- ESTADO DAS CONTAS ---' >> auditoria_acessos.txt
+rubentavares@LAPTOP-MDVICK7D:~/relatorios/sessao5$ sudo passwd -S -a | grep -E '^(alice|bruno|carla) ' >> auditoria_acessos.txt
+rubentavares@LAPTOP-MDVICK7D:~/relatorios/sessao5$ echo '--- POLÍTICA DA CARLA ---' >> auditoria_acessos.txt
+rubentavares@LAPTOP-MDVICK7D:~/relatorios/sessao5$  sudo chage -l carla >> auditoria_acessos.txt
+rubentavares@LAPTOP-MDVICK7D:~/relatorios/sessao5$ cat auditoria_acessos.txt
+===== AUDITORIA DE ACESSOS — CVTECH Lda. =====
+Data: Sat Oct 24 19:22:11 -01 2026
+--- PASTAS DEPARTAMENTAIS ---
+total 16
+drwxrwx--- 2 root  financas 4096 Oct 24 17:54 financas
+drwxr-xr-x 2 root  root     4096 Oct 24 17:54 publico
+drwxrwx--- 2 root  rh       4096 Oct 24 18:27 rh
+drwxrwx--- 2 bruno ti       4096 Oct 24 17:54 ti
+total 4
+-rw-r----- 1 alice rh 40 Oct 24 18:27 confidencial.txt
+--- ESTADO DAS CONTAS ---
+alice P 2026-10-24 0 99999 7 -1
+bruno P 2026-10-24 0 99999 7 -1
+carla P 1970-01-01 0 90 7 30
+--- POLÍTICA DA CARLA ---
+Last password change                                    : password must be changed
+Password expires                                        : password must be changed
+Password inactive                                       : password must be changed
+Account expires                                         : never
+Minimum number of days between password change          : 0
+Maximum number of days between password change          : 90
+Number of days of warning before password expires       : 7
+rubentavares@LAPTOP-MDVICK7D:~/relatorios/sessao5$ ^C
+rubentavares@LAPTOP-MDVICK7D:~/relatorios/sessao5$
