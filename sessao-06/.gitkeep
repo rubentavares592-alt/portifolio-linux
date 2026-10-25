@@ -1,0 +1,617 @@
+rubentavares@LAPTOP-MDVICK7D:~$ htop --version
+Command 'htop' not found, but can be installed with:
+sudo snap install htop  # version 3.5.3, or
+sudo apt  install htop  # version 3.4.1-5build2
+See 'snap info htop' for additional versions.
+rubentavares@LAPTOP-MDVICK7D:~$ sudo apt update && sudo apt install -y htop
+[sudo: authenticate] Password:
+Hit:1 http://security.ubuntu.com/ubuntu resolute-security InRelease
+Hit:2 http://archive.ubuntu.com/ubuntu resolute InRelease
+Get:3 http://archive.ubuntu.com/ubuntu resolute-updates InRelease [137 kB]
+Hit:4 http://archive.ubuntu.com/ubuntu resolute-backports InRelease
+Get:5 http://archive.ubuntu.com/ubuntu resolute-updates/main amd64 Packages [744 kB]
+Get:6 http://archive.ubuntu.com/ubuntu resolute-updates/universe amd64 Packages [334 kB]
+Fetched 1216 kB in 2s (625 kB/s)
+31 packages can be upgraded. Run 'apt list --upgradable' to see them.
+Installing:
+  htop
+
+Suggested packages:
+  lm-sensors  strace
+
+Summary:
+  Upgrading: 0, Installing: 1, Removing: 0, Not Upgrading: 31
+  Download size: 177 kB
+  Space needed: 451 kB / 1024 GB available
+
+Get:1 http://archive.ubuntu.com/ubuntu resolute/main amd64 htop amd64 3.4.1-5build2 [177 kB]
+Fetched 177 kB in 1s (247 kB/s)
+Selecting previously unselected package htop.
+(Reading database ... 35964 files and directories currently installed.)
+Preparing to unpack .../htop_3.4.1-5build2_amd64.deb ...
+Unpacking htop (3.4.1-5build2) ...
+Setting up htop (3.4.1-5build2) ...
+Processing triggers for hicolor-icon-theme (0.18-2build1) ...
+Processing triggers for man-db (2.13.1-1build1) ...
+rubentavares@LAPTOP-MDVICK7D:~$ ps aux | head -n 5
+USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root           1  0.0  0.4  24484 15740 ?        Ss   20:18   0:03 /sbin/init
+root           2  0.0  0.0   3804  2504 hvc0     Sl+  20:18   0:00 /init
+root           3  0.0  0.0   3664  2136 hvc0     S+   20:18   0:00 init-watcher
+root           7  0.0  0.0   3804  2272 hvc0     Sl+  20:18   0:00 plan9 --control-socket 7 --log-level 4 --server-fd 8 --pipe-fd 10 --log-truncate
+rubentavares@LAPTOP-MDVICK7D:~$ ps aux | wc -l
+29
+rubentavares@LAPTOP-MDVICK7D:~$ ps u
+USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+rubenta+     403  0.0  0.1   6136  5548 pts/1    Ss+  20:18   0:00 -bash
+rubenta+    1804  0.0  0.1   6268  5680 pts/0    Ss   23:20   0:00 -bash
+rubenta+    2058  0.0  0.1   7160  4428 pts/0    R+   23:23   0:00 ps u
+rubentavares@LAPTOP-MDVICK7D:~$ ps aux --sort=-%cpu | head -n 5
+USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root        1923  0.0  0.5 340172 22192 ?        Ssl  23:22   0:00 /usr/libexec/packagekitd
+rubenta+    1804  0.0  0.1   6268  5680 pts/0    Ss   23:20   0:00 -bash
+root           1  0.0  0.4  24484 15740 ?        Ss   20:18   0:03 /sbin/init
+root          47  0.0  0.6  58844 24232 ?        S<s  20:18   0:01 /usr/lib/systemd/systemd-journald
+rubentavares@LAPTOP-MDVICK7D:~$ top
+top - 23:26:22 up  3:07,  1 user,  load average: 0.01, 0.05, 0.04
+Tasks:  28 total,   1 running,  27 sleeping,   0 stopped,   0 zombie
+%Cpu(s):  0.0 us,  0.2 sy,  0.0 ni, 99.8 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+MiB Mem :   3762.6 total,   3271.1 free,    392.3 used,    170.0 buff/cache
+MiB Swap:   1024.0 total,   1024.0 free,      0.0 used.   3370.3 avail Mem
+
+    PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND
+    238 root      20   0  123480  32708  18092 S   0.0   0.8   0:00.21 unattended-upgr
+    145 root      20   0   44112  30004  14864 S   0.0   0.8   0:00.26 networkd-dispat
+     47 root      19  -1   58844  24232  22940 S   0.0   0.6   0:01.41 systemd-journal
+   1923 root      20   0  340172  22192  19116 S   0.0   0.6   0:00.07 packagekitd
+      1 root      20   0   24484  15740  11608 S   0.0   0.4   0:03.20 systemd
+   2080 root      20   0 1792300  15160  12684 S   0.0   0.4   0:00.07 wsl-pro-service
+     82 systemd+  20   0   22432  14568  12084 S   0.0   0.4   0:00.57 systemd-resolve
+    373 rubenta+  20   0   22356  13684  11048 S   0.0   0.4   0:00.81 systemd
+     93 root      20   0   34672  11944   9220 S   0.0   0.3   0:01.40 systemd-udevd
+    150 root      20   0   18444   9492   8244 S   0.0   0.2   0:00.41 systemd-logind
+   1404 polkitd   20   0  306448   8648   7836 S   0.0   0.2   0:00.36 polkitd
+    211 _chrony   20   0   20424   6364   5588 S   0.0   0.2   0:00.27 chronyd
+   2079 rubenta+  20   0    8188   6072   4012 R   0.0   0.2   0:00.08 top
+    173 syslog    20   0  220548   6056   4752 S   0.0   0.2   0:00.48 rsyslogd
+   1804 rubenta+  20   0    6268   5680   4000 S   0.0   0.1   0:00.08 bash
+    331 root      20   0    8644   5660   4820 S   0.0   0.1   0:00.01 login
+    403 rubenta+  20   0    6136   5548   3992 S   0.0   0.1   0:00.03 bash
+    117 message+  20   0    8828   5516   4760 S   0.0   0.1   0:00.17 dbus-daemon
+    377 rubenta+  20   0   22928   4084   2076 S   0.0   0.1   0:00.00 (sd-pam)
+    116 root      20   0    4472   3236   2988 S   0.0   0.1   0:00.08 cron
+    256 root      20   0    5492   2840   2660 S   0.0   0.1   0:00.00 agetty
+    221 _chrony   20   0   12096   2520   1876 S   0.0   0.1   0:00.00 chronyd
+      2 root      20   0    3804   2504   2376 S   0.0   0.1   0:00.01 init-systemd(Ub
+rubentavares@LAPTOP-MDVICK7D:~$ htop
+rubentavares@LAPTOP-MDVICK7D:~$  sleep 300 &
+[1] 2129
+rubentavares@LAPTOP-MDVICK7D:~$  jobs
+[1]+  Running                    sleep 300 &
+rubentavares@LAPTOP-MDVICK7D:~$  fg %1
+sleep 300
+^Z
+[1]+  Stopped                    sleep 300
+rubentavares@LAPTOP-MDVICK7D:~$ jobs
+[1]+  Stopped                    sleep 300
+rubentavares@LAPTOP-MDVICK7D:~$ bg %1
+[1]+ sleep 300 &
+rubentavares@LAPTOP-MDVICK7D:~$ jobs
+[1]+  Running                    sleep 300 &
+rubentavares@LAPTOP-MDVICK7D:~$  kill %1
+[1]+  Terminated                 sleep 300
+rubentavares@LAPTOP-MDVICK7D:~$ jobs
+rubentavares@LAPTOP-MDVICK7D:~$ cd ~ && nano incidente_s6.sh
+rubentavares@LAPTOP-MDVICK7D:~$ less incidente_s6.sh
+rubentavares@LAPTOP-MDVICK7D:~$ bash incidente_s6.sh
+Incidente iniciado no servidor da CVTECH.
+Registo do monitor: /home/rubentavares/incidente/servidor.log
+Os processos terminam sozinhos ao fim de 40 minutos.
+rubentavares@LAPTOP-MDVICK7D:~$  tail -f ~/incidente/servidor.log
+2026-10-24 23:37:54 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:37:54 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:37:59 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:37:59 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:38:04 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:38:04 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:38:09 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:38:09 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:38:14 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:38:14 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:38:19 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:38:19 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:38:24 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:38:24 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:38:29 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:38:29 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:38:34 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:38:34 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:38:39 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:38:39 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:38:44 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:38:44 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:38:49 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:38:49 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:38:54 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:38:54 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:38:59 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:38:59 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:39:04 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:39:04 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:39:09 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:39:09 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:39:14 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:39:14 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:39:19 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:39:19 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:39:24 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:39:24 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:39:29 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:39:29 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:39:34 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:39:34 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:39:39 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:39:39 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:39:44 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:39:44 WARN cvtech-relatorio.sh ainda em execução
+q2026-10-24 23:39:49 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:39:49 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:39:54 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:39:54 WARN cvtech-relatorio.sh ainda em execução
+
+2026-10-24 23:39:59 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:39:59 WARN cvtech-relatorio.sh ainda em execução
+y
+2026-10-24 23:40:04 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:40:04 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:40:09 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:40:09 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:40:14 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:40:14 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:40:19 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:40:20 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:40:25 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:40:25 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:40:30 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:40:30 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:40:35 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:40:35 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:40:40 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:40:40 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:40:45 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:40:45 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:40:50 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:40:50 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:40:55 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:40:55 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:41:00 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:41:00 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:41:05 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:41:05 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:41:10 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:41:10 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:41:15 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:41:15 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:41:20 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:41:20 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:41:25 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:41:25 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:41:30 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:41:30 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:41:35 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:41:35 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:41:40 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:41:40 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:41:45 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:41:45 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:41:50 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:41:50 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:41:55 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:41:55 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:42:00 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:42:00 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:42:05 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:42:05 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:42:10 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:42:10 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:42:15 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:42:15 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:42:20 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:42:20 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:42:25 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:42:25 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:42:30 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:42:30 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:42:35 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:42:35 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:42:40 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:42:40 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:42:45 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:42:45 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:42:50 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:42:50 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:42:55 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:42:55 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:43:00 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:43:00 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:43:05 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:43:05 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:43:10 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:43:10 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:43:15 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:43:15 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:43:21 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:43:21 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:43:26 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:43:26 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:43:31 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:43:31 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:43:36 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:43:36 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:43:41 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:43:41 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:43:46 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:43:46 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:43:51 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:43:51 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:43:56 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:43:56 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:44:01 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:44:01 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:44:06 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:44:06 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:44:11 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:44:11 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:44:16 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:44:16 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:44:21 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:44:21 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:44:26 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:44:26 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:44:31 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:44:31 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:44:36 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:44:36 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:44:41 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:44:41 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:44:46 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:44:46 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:44:51 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:44:51 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:44:56 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:44:56 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:45:01 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:45:01 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:45:06 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:45:06 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:45:11 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:45:11 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:45:16 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:45:16 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:45:21 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:45:21 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:45:26 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:45:26 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:45:31 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:45:31 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:45:36 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:45:36 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:45:41 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:45:41 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:45:46 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:45:46 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:45:51 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:45:51 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:45:56 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:45:56 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:46:01 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:46:01 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:46:06 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:46:06 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:46:11 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:46:11 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:46:16 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:46:16 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:46:21 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:46:21 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:46:26 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:46:26 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:46:31 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:46:32 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:46:37 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:46:37 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:46:42 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:46:42 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:46:47 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:46:47 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:46:52 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:46:52 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:46:57 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:46:57 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:47:02 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:47:02 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:47:07 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:47:07 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:47:12 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:47:12 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:47:17 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:47:17 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:47:22 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:47:22 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:47:27 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:47:27 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:47:32 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:47:32 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:47:37 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:47:37 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:47:42 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:47:42 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:47:47 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:47:47 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:47:52 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:47:52 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:47:57 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:47:57 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:48:02 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:48:02 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:48:07 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:48:07 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:48:12 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:48:12 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:48:17 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:48:17 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:48:22 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:48:22 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:48:27 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:48:27 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:48:32 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:48:32 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:48:37 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:48:37 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:48:42 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:48:42 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:48:47 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:48:47 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:48:52 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:48:52 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:48:57 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:48:57 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:49:02 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:49:02 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:49:07 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:49:07 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:49:12 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:49:12 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:49:17 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:49:17 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:49:22 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:49:22 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:49:27 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:49:27 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:49:32 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:49:32 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:49:37 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:49:37 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:49:42 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:49:42 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:49:48 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:49:48 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:49:53 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:49:53 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:49:58 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:49:58 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:50:03 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:50:03 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:50:08 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:50:08 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:50:13 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:50:13 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:50:18 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:50:18 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:50:23 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:50:23 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:50:28 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:50:28 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:50:33 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:50:33 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:50:38 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:50:38 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:50:43 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:50:43 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:50:48 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:50:48 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:50:53 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:50:53 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:50:58 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:50:58 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:51:03 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:51:03 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:51:08 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:51:08 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:51:13 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:51:13 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:51:18 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:51:18 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:51:23 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:51:23 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:51:28 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:51:28 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:51:33 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:51:33 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:51:38 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:51:38 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:51:43 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:51:43 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:51:48 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:51:48 WARN cvtech-relatorio.sh ainda em execução
+2026-10-24 23:51:53 WARN CPU acima de 95% — processo cvtech-sync.sh ativo
+2026-10-24 23:51:53 WARN cvtech-relatorio.sh ainda em execução
+^C
+rubentavares@LAPTOP-MDVICK7D:~$ top
+top - 23:53:37 up  3:34,  1 user,  load average: 1.00, 0.98, 0.68
+Tasks:  31 total,   2 running,  29 sleeping,   0 stopped,   0 zombie
+%Cpu(s): 24.9 us,  0.2 sy,  0.0 ni, 74.0 id,  0.2 wa,  0.0 hi,  0.7 si,  0.0 st
+MiB Mem :   3762.6 total,   3262.7 free,    388.3 used,    182.5 buff/cache
+MiB Swap:   1024.0 total,   1024.0 free,      0.0 used.   3374.3 avail Mem
+
+    PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND
+   2241 rubenta+  20   0    4948   3792   3516 R  99.7   0.1  15:52.74 cvtech-sync.sh
+      1 root      20   0   24484  15740  11608 S   0.0   0.4   0:03.22 systemd
+      2 root      20   0    3804   2504   2376 S   0.0   0.1   0:00.01 init-systemd(Ub
+      3 root      20   0    3664   2136   2040 S   0.0   0.1   0:00.00 init-watcher
+      7 root      20   0    3804   2272   2168 S   0.0   0.1   0:00.00 init
+     47 root      19  -1   58844  24416  23120 S   0.0   0.6   0:01.83 systemd-journal
+     82 systemd+  20   0   22432  14568  12084 S   0.0   0.4   0:00.57 systemd-resolve
+     93 root      20   0   34672  11944   9220 S   0.0   0.3   0:01.41 systemd-udevd
+    115 root      20   0    2888   2076   1948 S   0.0   0.1   0:00.05 chronyd-starter
+    116 root      20   0    4472   3236   2988 S   0.0   0.1   0:00.08 cron
+    117 message+  20   0    8828   5516   4760 S   0.0   0.1   0:00.17 dbus-daemon
+    145 root      20   0   44112  30004  14864 S   0.0   0.8   0:00.26 networkd-dispat
+    150 root      20   0   18444   9492   8244 S   0.0   0.2   0:00.41 systemd-logind
+    173 syslog    20   0  220548   6060   4752 S   0.0   0.2   0:00.54 rsyslogd
+    211 _chrony   20   0   20424   6364   5588 S   0.0   0.2   0:00.31 chronyd
+    221 _chrony   20   0   12096   2520   1876 S   0.0   0.1   0:00.00 chronyd
+    238 root      20   0  123480  32708  18092 S   0.0   0.8   0:00.21 unattended-upgr
+    256 root      20   0    5492   2840   2660 S   0.0   0.1   0:00.00 agetty
+    331 root      20   0    8644   5660   4820 S   0.0   0.1   0:00.01 login
+    373 rubenta+  20   0   22356  13684  11048 S   0.0   0.4   0:00.81 systemd
+    377 rubenta+  20   0   22928   4084   2076 S   0.0   0.1   0:00.00 (sd-pam)
+    403 rubenta+  20   0    6136   5548   3992 S   0.0   0.1   0:00.03 bash
+   1404 polkitd   20   0  306448   8648   7836 S   0.0   0.2   0:00.40 polkitd
+rubentavares@LAPTOP-MDVICK7D:~$ ps aux --sort=-%cpu | head -n 5
+USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+rubenta+    2241 99.9  0.0   4948  3792 pts/0    R    23:37  16:01 /bin/bash /home/rubentavares/incidente/cvtech-sync.sh
+rubenta+    2243  0.0  0.1   5080  3880 pts/0    S    23:37   0:00 /bin/bash /home/rubentavares/incidente/cvtech-monitor.sh
+rubenta+    2242  0.0  0.0   4948  3816 pts/0    S    23:37   0:00 /bin/bash /home/rubentavares/incidente/cvtech-relatorio.sh
+root           1  0.0  0.4  24484 15740 ?        Ss   20:18   0:03 /sbin/init
+rubentavares@LAPTOP-MDVICK7D:~$  kill 2241
+rubentavares@LAPTOP-MDVICK7D:~$  ps aux | grep '[c]vtech'
+rubenta+    2242  0.0  0.0   4948  3816 pts/0    S    23:37   0:00 /bin/bash /home/rubentavares/incidente/cvtech-relatorio.sh
+rubenta+    2243  0.0  0.1   5080  3880 pts/0    S    23:37   0:00 /bin/bash /home/rubentavares/incidente/cvtech-monitor.sh
+rubentavares@LAPTOP-MDVICK7D:~$ ps aux | grep '[c]vtech-relatorio'
+rubenta+    2242  0.0  0.0   4948  3816 pts/0    S    23:37   0:00 /bin/bash /home/rubentavares/incidente/cvtech-relatorio.sh
+rubentavares@LAPTOP-MDVICK7D:~$ kill 2242
+rubentavares@LAPTOP-MDVICK7D:~$ ps -p 2242
+    PID TTY          TIME CMD
+   2242 pts/0    00:00:01 cvtech-relatori
+rubentavares@LAPTOP-MDVICK7D:~$ kill -9 2242
+rubentavares@LAPTOP-MDVICK7D:~$  ps -p 2242
+    PID TTY          TIME CMD
+rubentavares@LAPTOP-MDVICK7D:~$ ls -l /var/log
+total 4456
+lrwxrwxrwx 1 root      root                 39 Aug 27 13:11 README -> ../../usr/share/doc/systemd/README.logs
+-rw-r--r-- 1 root      root              31503 Oct 21 06:58 alternatives.log
+drwxr-xr-x 2 root      root               4096 Oct 24 23:22 apt
+-rw-r----- 1 syslog    adm               50975 Oct 25 00:17 auth.log
+-rw-r----- 1 syslog    adm               35714 Oct 20 11:33 auth.log.1
+-rw-r--r-- 1 root      root             148279 Aug 27 13:11 bootstrap.log
+-rw-rw---- 1 root      utmp                  0 Aug 27 13:10 btmp
+drwxr-x--- 2 _chrony   _chrony            4096 Oct  9 17:55 chrony
+drwxr-xr-x 2 root      root               4096 Aug 24 13:06 dist-upgrade
+-rw-r----- 1 root      adm               33912 Oct 24 17:43 dmesg
+-rw-r----- 1 root      adm               34322 Oct 24 13:17 dmesg.0
+-rw-r----- 1 root      adm               10602 Oct 23 10:06 dmesg.1.gz
+-rw-r----- 1 root      adm               10527 Oct 21 19:37 dmesg.2.gz
+-rw-r----- 1 root      adm               10530 Oct 21 19:27 dmesg.3.gz
+-rw-r----- 1 root      adm               10512 Oct 21 19:15 dmesg.4.gz
+-rw-r--r-- 1 root      root             422546 Oct 24 23:22 dpkg.log
+-rw-r--r-- 1 root      root                790 Aug 27 13:13 fontconfig.log
+drwxr-sr-x+3 root      systemd-journal    4096 Oct  9 17:55 journal
+-rw-r----- 1 syslog    adm              526464 Oct 24 23:18 kern.log
+-rw-r----- 1 syslog    adm              619435 Oct 20 11:35 kern.log.1
+drwxr-xr-x 2 landscape landscape          4096 Oct  9 17:55 landscape
+-rw-rw-r-- 1 root      utmp                  0 Aug 27 13:10 lastlog
+drwx------ 2 root      root               4096 Aug 27 13:11 private
+-rw-r----- 1 syslog    adm             1184067 Oct 25 00:17 syslog
+-rw-r----- 1 syslog    adm             1329687 Oct 20 11:45 syslog.1
+drwxr-x--- 2 root      adm                4096 Oct 11 15:55 unattended-upgrades
+-rw-rw-r-- 1 root      utmp               9600 Oct 24 17:43 wtmp
+rubentavares@LAPTOP-MDVICK7D:~$ sudo dmesg | tail -n 5
+[sudo: authenticate] Password:
+[10638.252660] hv_utils: TimeSync IC version 4.0
+[10652.754485] WSL (106) ERROR: CheckConnection: getaddrinfo() failed: -5
+[10772.490226] mini_init (89): drop_caches: 3
+[11112.953433] mini_init (89): drop_caches: 3
+[13663.224371] mini_init (89): drop_caches: 3
+rubentavares@LAPTOP-MDVICK7D:~$ sudo journalctl _COMM=sudo -n 10 --no-pager
+Oct 24 23:21:58 LAPTOP-MDVICK7D sudo[1857]: rubentavares : TTY=/dev/pts/0 ; PWD=/home/rubentavares ; USER=root ; COMMAND=/usr/bin/apt update
+Oct 24 23:22:02 LAPTOP-MDVICK7D sudo[1857]: pam_unix(sudo:session): session closed for user root
+Oct 24 23:22:02 LAPTOP-MDVICK7D sudo[1940]: pam_unix(sudo:session): session opened for user root(uid=0) by (uid=1000)
+Oct 24 23:22:02 LAPTOP-MDVICK7D sudo[1940]: rubentavares : TTY=/dev/pts/0 ; PWD=/home/rubentavares ; USER=root ; COMMAND=/usr/bin/apt install -y htop
+Oct 24 23:22:06 LAPTOP-MDVICK7D sudo[1940]: pam_unix(sudo:session): session closed for user root
+Oct 25 00:24:06 LAPTOP-MDVICK7D sudo[7229]: pam_unix(sudo:session): session opened for user root(uid=0) by (uid=1000)
+Oct 25 00:24:06 LAPTOP-MDVICK7D sudo[7229]: rubentavares : TTY=/dev/pts/0 ; PWD=/home/rubentavares ; USER=root ; COMMAND=/usr/bin/dmesg
+Oct 25 00:24:06 LAPTOP-MDVICK7D sudo[7229]: pam_unix(sudo:session): session closed for user root
+Oct 25 00:27:12 LAPTOP-MDVICK7D sudo[7244]: pam_unix(sudo:session): session opened for user root(uid=0) by (uid=1000)
+Oct 25 00:27:12 LAPTOP-MDVICK7D sudo[7244]: rubentavares : TTY=/dev/pts/0 ; PWD=/home/rubentavares ; USER=root ; COMMAND=/usr/bin/journalctl _COMM=sudo -n 10 --no-pager
+rubentavares@LAPTOP-MDVICK7D:~$  sudo grep 'sudo' /var/log/auth.log | tail -n 5
+grep: /var/log/auth.log: binary file matches
+rubentavares@LAPTOP-MDVICK7D:~$ journalctl -t cvtech -n 10 --no-page
+Oct 25 00:17:09 LAPTOP-MDVICK7D cvtech[7164]: INFO CPU normalizada — cvtech-sync.sh terminado
+Oct 25 00:17:14 LAPTOP-MDVICK7D cvtech[7169]: INFO CPU normalizada — cvtech-sync.sh terminado
+Oct 25 00:17:19 LAPTOP-MDVICK7D cvtech[7174]: INFO CPU normalizada — cvtech-sync.sh terminado
+Oct 25 00:17:24 LAPTOP-MDVICK7D cvtech[7179]: INFO CPU normalizada — cvtech-sync.sh terminado
+Oct 25 00:17:29 LAPTOP-MDVICK7D cvtech[7184]: INFO CPU normalizada — cvtech-sync.sh terminado
+Oct 25 00:17:34 LAPTOP-MDVICK7D cvtech[7189]: INFO CPU normalizada — cvtech-sync.sh terminado
+Oct 25 00:17:39 LAPTOP-MDVICK7D cvtech[7194]: INFO CPU normalizada — cvtech-sync.sh terminado
+Oct 25 00:17:44 LAPTOP-MDVICK7D cvtech[7199]: INFO CPU normalizada — cvtech-sync.sh terminado
+Oct 25 00:17:49 LAPTOP-MDVICK7D cvtech[7204]: INFO CPU normalizada — cvtech-sync.sh terminado
+Oct 25 00:17:54 LAPTOP-MDVICK7D cvtech[7209]: INFO CPU normalizada — cvtech-sync.sh terminado
+rubentavares@LAPTOP-MDVICK7D:~$ journalctl -t cvtech -f
+Oct 25 00:17:09 LAPTOP-MDVICK7D cvtech[7164]: INFO CPU normalizada — cvtech-sync.sh terminado
+Oct 25 00:17:14 LAPTOP-MDVICK7D cvtech[7169]: INFO CPU normalizada — cvtech-sync.sh terminado
+Oct 25 00:17:19 LAPTOP-MDVICK7D cvtech[7174]: INFO CPU normalizada — cvtech-sync.sh terminado
+Oct 25 00:17:24 LAPTOP-MDVICK7D cvtech[7179]: INFO CPU normalizada — cvtech-sync.sh terminado
+Oct 25 00:17:29 LAPTOP-MDVICK7D cvtech[7184]: INFO CPU normalizada — cvtech-sync.sh terminado
+Oct 25 00:17:34 LAPTOP-MDVICK7D cvtech[7189]: INFO CPU normalizada — cvtech-sync.sh terminado
+Oct 25 00:17:39 LAPTOP-MDVICK7D cvtech[7194]: INFO CPU normalizada — cvtech-sync.sh terminado
+Oct 25 00:17:44 LAPTOP-MDVICK7D cvtech[7199]: INFO CPU normalizada — cvtech-sync.sh terminado
+Oct 25 00:17:49 LAPTOP-MDVICK7D cvtech[7204]: INFO CPU normalizada — cvtech-sync.sh terminado
+Oct 25 00:17:54 LAPTOP-MDVICK7D cvtech[7209]: INFO CPU normalizada — cvtech-sync.sh terminado
+^Crubentavares@LAPTOP-MDVICK7D:~$ cd ~/incidente
+rubentavares@LAPTOP-MDVICK7D:~/incidente$ grep -c 'ERRO' servidor.log
+1
+rubentavares@LAPTOP-MDVICK7D:~/incidente$ grep -c 'WARN' servidor.log
+543
+rubentavares@LAPTOP-MDVICK7D:~/incidente$ grep 'CPU normalizada' servidor.log | head -n 1
+2026-10-24 23:55:14 INFO CPU normalizada — cvtech-sync.sh terminado
+rubentavares@LAPTOP-MDVICK7D:~/incidente$ tail -n 3 servidor.log
+2026-10-25 00:17:44 INFO CPU normalizada — cvtech-sync.sh terminado
+2026-10-25 00:17:49 INFO CPU normalizada — cvtech-sync.sh terminado
+2026-10-25 00:17:54 INFO CPU normalizada — cvtech-sync.sh terminado
+rubentavares@LAPTOP-MDVICK7D:~/incidente$ mkdir -p ~/relatorios/sessao6 && cd ~/relatorios/sessao6
+rubentavares@LAPTOP-MDVICK7D:~/relatorios/sessao6$ echo '===== RELATÓRIO DE INCIDENTE — CVTECH Lda. =====' > relatorio_incidente.txt
+rubentavares@LAPTOP-MDVICK7D:~/relatorios/sessao6$  echo "Data: $(date)" >> relatorio_incidente.txt
+rubentavares@LAPTOP-MDVICK7D:~/relatorios/sessao6$  echo '--- CRONOLOGIA ---' >> relatorio_incidente.txt
+rubentavares@LAPTOP-MDVICK7D:~/relatorios/sessao6$ grep -E 'ERRO|monitor iniciado' ~/incidente/servidor.log >> relatorio_incidente.txt
+rubentavares@LAPTOP-MDVICK7D:~/relatorios/sessao6$  grep 'CPU normalizada' ~/incidente/servidor.log | head -n 1 >> relatorio_incidente.txt
+rubentavares@LAPTOP-MDVICK7D:~/relatorios/sessao6$ echo "Avisos registados: $(grep -c WARN ~/incidente/servidor.log)" >> relatorio_incidente.txt
+rubentavares@LAPTOP-MDVICK7D:~/relatorios/sessao6$ echo '--- PROCESSOS cvtech AINDA ATIVOS ---' >> relatorio_incidente.txt
+rubentavares@LAPTOP-MDVICK7D:~/relatorios/sessao6$ ps aux | grep '[c]vtech' >> relatorio_incidente.txt
+rubentavares@LAPTOP-MDVICK7D:~/relatorios/sessao6$ echo '--- TOP 5 DE CPU APÓS A INTERVENÇÃO ---' >> relatorio_incidente.txt
+rubentavares@LAPTOP-MDVICK7D:~/relatorios/sessao6$ ps aux --sort=-%cpu | head -n 6 >> relatorio_incidente.txt
+rubentavares@LAPTOP-MDVICK7D:~/relatorios/sessao6$ cat relatorio_incidente.txt
+===== RELATÓRIO DE INCIDENTE — CVTECH Lda. =====
+Data: Sun Oct 25 00:33:26 -01 2026
+--- CRONOLOGIA ---
+2026-10-24 23:37:44 INFO monitor iniciado
+2026-10-24 23:37:44 ERRO cvtech-sync não responde — CPU acima de 95%
+2026-10-24 23:55:14 INFO CPU normalizada — cvtech-sync.sh terminado
+Avisos registados: 543
+--- PROCESSOS cvtech AINDA ATIVOS ---
+--- TOP 5 DE CPU APÓS A INTERVENÇÃO ---
+USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root           1  0.0  0.4  24484 15740 ?        Ss   Oct24   0:03 /sbin/init
+root          47  0.0  0.6  58844 24904 ?        S<s  Oct24   0:02 /usr/lib/systemd/systemd-journald
+root        7252  0.0  0.3 1792300 15108 ?       Ssl  00:27   0:00 /usr/libexec/wsl-pro-service
+root          93  0.0  0.3  34672 11944 ?        Ss   Oct24   0:01 /usr/lib/systemd/systemd-udevd
+rubenta+    1804  0.0  0.1   6660  6144 pts/0    Ss   Oct24   0:00 -bash
+rubentavares@LAPTOP-MDVICK7D:~/relatorios/sessao6$ nano relatorio_incidente.txt
+rubentavares@LAPTOP-MDVICK7D:~/relatorios/sessao6$  ps aux | grep '[c]vtech-monitor'
+rubentavares@LAPTOP-MDVICK7D:~/relatorios/sessao6$ kill PID_DO_MONITOR
+-bash: kill: `PID_DO_MONITOR': not a pid or valid job spec
+rubentavares@LAPTOP-MDVICK7D:~/relatorios/sessao6$ ps aux | grep '[c]vtech-monitor'
+rubentavares@LAPTOP-MDVICK7D:~/relatorios/sessao6$ kill
+kill: usage: kill [-s sigspec | -n signum | -sigspec] pid | jobspec ... or kill -l [sigspec]
+rubentavares@LAPTOP-MDVICK7D:~/relatorios/sessao6$ ps aux | grep '[c]vtech'
+rubentavares@LAPTOP-MDVICK7D:~/relatorios/sessao6$
