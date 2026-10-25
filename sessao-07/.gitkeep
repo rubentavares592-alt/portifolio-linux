@@ -1,1 +1,265 @@
 
+rubentavares@LAPTOP-MDVICK7D:~$ cd ~ && nano prepara_s7.sh
+rubentavares@LAPTOP-MDVICK7D:~$ cd ~ && nano prepara_s7.sh
+rubentavares@LAPTOP-MDVICK7D:~$ less prepara_s7.sh
+rubentavares@LAPTOP-MDVICK7D:~$ bash prepara_s7.sh
+Estrutura pronta para a Sessão 7:
+  ficheiros em ~/empresa: 11
+  pastas criadas: ~/backups e ~/scripts
+rubentavares@LAPTOP-MDVICK7D:~$ cd ~
+rubentavares@LAPTOP-MDVICK7D:~$ tar -czvf empresa_manual.tar.gz empresa/
+empresa/
+empresa/rh/
+empresa/rh/relatorio_mar.txt
+empresa/rh/contrato_alice_v1.txt
+empresa/rh/relatorio_fev.txt
+empresa/rh/arquivo_2026/
+empresa/rh/arquivo_2026/relatorio_jan.txt
+empresa/financas/
+empresa/financas/backup/
+empresa/financas/backup/orcamento_2026.bak
+empresa/financas/orcamento_2026.txt
+empresa/ti/
+empresa/ti/erros.log
+empresa/ti/config.log
+empresa/ti/acessos.log
+empresa/ti/deploy.sh
+empresa/README.md
+rubentavares@LAPTOP-MDVICK7D:~$ ls -lh empresa_manual.tar.gz
+-rw-r--r-- 1 rubentavares rubentavares 2.0K Oct 25 18:54 empresa_manual.tar.gz
+rubentavares@LAPTOP-MDVICK7D:~$ du -sh empresa
+68K     empresa
+rubentavares@LAPTOP-MDVICK7D:~$ tar -tzvf empresa_manual.tar.gz
+drwxr-xr-x rubentavares/rubentavares 0 2026-10-11 20:31 empresa/
+drwxr-xr-x rubentavares/rubentavares 0 2026-10-11 19:52 empresa/rh/
+-rw-r--r-- rubentavares/rubentavares 115 2026-10-20 12:37 empresa/rh/relatorio_mar.txt
+-rw-r--r-- rubentavares/rubentavares 154 2026-10-20 12:37 empresa/rh/contrato_alice_v1.txt
+-rw-r--r-- rubentavares/rubentavares  97 2026-10-20 12:37 empresa/rh/relatorio_fev.txt
+drwxr-xr-x rubentavares/rubentavares   0 2026-10-11 19:36 empresa/rh/arquivo_2026/
+-rw-r--r-- rubentavares/rubentavares 116 2026-10-20 12:37 empresa/rh/arquivo_2026/relatorio_jan.txt
+drwxr-xr-x rubentavares/rubentavares   0 2026-10-11 18:58 empresa/financas/
+drwxr-xr-x rubentavares/rubentavares   0 2026-10-11 19:47 empresa/financas/backup/
+-rw-r--r-- rubentavares/rubentavares  73 2026-10-20 12:37 empresa/financas/backup/orcamento_2026.bak
+-rw-r--r-- rubentavares/rubentavares  73 2026-10-20 12:37 empresa/financas/orcamento_2026.txt
+drwxr-xr-x rubentavares/rubentavares   0 2026-10-20 12:37 empresa/ti/
+-rw-r--r-- rubentavares/rubentavares 1069 2026-10-20 12:37 empresa/ti/erros.log
+-rw-r--r-- rubentavares/rubentavares  277 2026-10-20 12:37 empresa/ti/config.log
+-rw-r--r-- rubentavares/rubentavares  805 2026-10-20 12:37 empresa/ti/acessos.log
+-rw-r--r-- rubentavares/rubentavares  177 2026-10-20 12:37 empresa/ti/deploy.sh
+-rw-r--r-- rubentavares/rubentavares  573 2026-10-11 20:29 empresa/README.md
+rubentavares@LAPTOP-MDVICK7D:~$ tar -tzf empresa_manual.tar.gz | wc -l
+17
+rubentavares@LAPTOP-MDVICK7D:~$ mkdir -p ~/restauro
+rubentavares@LAPTOP-MDVICK7D:~$ tar -xzf empresa_manual.tar.gz -C ~/restauro
+rubentavares@LAPTOP-MDVICK7D:~$ ls ~/restauro
+empresa
+rubentavares@LAPTOP-MDVICK7D:~$  diff -r empresa restauro/empresa && echo "Cópia idêntica"
+Cópia idêntica
+rubentavares@LAPTOP-MDVICK7D:~$ tar -czf "empresa_$(date +%F).tar.gz" empresa/
+rubentavares@LAPTOP-MDVICK7D:~$ ls empresa_*.tar.gz
+empresa_2026-10-25.tar.gz  empresa_manual.tar.gz
+rubentavares@LAPTOP-MDVICK7D:~$ openssl enc -aes-256-cbc -salt -pbkdf2 -in empresa_manual.tar.gz -out empresa_manual.tar.gz.enc
+enter AES-256-CBC encryption password:
+Verifying - enter AES-256-CBC encryption password:
+rubentavares@LAPTOP-MDVICK7D:~$ ls -lh empresa_manual.tar.gz*
+-rw-r--r-- 1 rubentavares rubentavares 2.0K Oct 25 18:54 empresa_manual.tar.gz
+-rw-r--r-- 1 rubentavares rubentavares 2.0K Oct 25 19:05 empresa_manual.tar.gz.enc
+rubentavares@LAPTOP-MDVICK7D:~$ head -c 8 empresa_manual.tar.gz.enc; echo
+Salted__
+rubentavares@LAPTOP-MDVICK7D:~$ tar -tzf empresa_manual.tar.gz.enc
+
+gzip: stdin: not in gzip format
+tar: Child returned status 1
+tar: Error is not recoverable: exiting now
+rubentavares@LAPTOP-MDVICK7D:~$ openssl enc -d -aes-256-cbc -pbkdf2 -in empresa_manual.tar.gz.enc -out restaurado.tar.gz
+enter AES-256-CBC decryption password:
+rubentavares@LAPTOP-MDVICK7D:~$ openssl enc -d -aes-256-cbc -pbkdf2 -in empresa_manual.tar.gz.enc -out restaurado.tar.gz
+enter AES-256-CBC decryption password:
+rubentavares@LAPTOP-MDVICK7D:~$ tar -tzf restaurado.tar.gz | head -n 3
+empresa/
+empresa/rh/
+empresa/rh/relatorio_mar.txt
+rubentavares@LAPTOP-MDVICK7D:~$ echo -n 'CvTech-Backup#2026' > ~/.backup_pass
+rubentavares@LAPTOP-MDVICK7D:~$ chmod 600 ~/.backup_pass
+rubentavares@LAPTOP-MDVICK7D:~$ ls -l ~/.backup_pass
+-rw------- 1 rubentavares rubentavares 18 Oct 25 19:11 /home/rubentavares/.backup_pass
+rubentavares@LAPTOP-MDVICK7D:~$ nano ~/scripts/backup_cvtech.sh
+rubentavares@LAPTOP-MDVICK7D:~$ ls -ld ~/scripts
+drwxr-xr-x 2 rubentavares rubentavares 4096 Oct 25 19:20 /home/rubentavares/scripts
+rubentavares@LAPTOP-MDVICK7D:~$ mkdir -p ~/scripts
+rubentavares@LAPTOP-MDVICK7D:~$ ls -l ~/scripts
+total 0
+rubentavares@LAPTOP-MDVICK7D:~$ nano ~/scripts/backup_cvtech.sh
+rubentavares@LAPTOP-MDVICK7D:~$ chmod u+x ~/scripts/backup_cvtech.sh
+rubentavares@LAPTOP-MDVICK7D:~$  ~/scripts/backup_cvtech.sh
+enc: Option -pass needs a value
+enc: Use -help for summary.
+/home/rubentavares/scripts/backup_cvtech.sh: line 22: file:/home/rubentavares/.backup_pass: No such file or directory
+ERRO: o backup falhou.
+rubentavares@LAPTOP-MDVICK7D:~$ nano ~/scripts/backup_cvtech.sh
+rubentavares@LAPTOP-MDVICK7D:~$ grep -n "pass file" ~/scripts/backup_cvtech.sh
+21: openssl enc -aes-256-cbc -salt -pbkdf2 -in "$FICHEIRO" -out "$FICHEIRO.enc" -pass file:"$PASS_FILE"; then
+rubentavares@LAPTOP-MDVICK7D:~$ echo -n 'CvTech-Backup#2026' > ~/.backup_pass
+rubentavares@LAPTOP-MDVICK7D:~$ chmod 600 ~/.backup_pass
+rubentavares@LAPTOP-MDVICK7D:~$ ls -l ~/.backup_pass
+-rw------- 1 rubentavares rubentavares 18 Oct 25 20:32 /home/rubentavares/.backup_pass
+rubentavares@LAPTOP-MDVICK7D:~$ ~/scripts/backup_cvtech.sh
+Backup criado: /home/rubentavares/backups/empresa_2026-10-25_2033.tar.gz.enc
+rubentavares@LAPTOP-MDVICK7D:~$ ls -lh ~/backups
+total 8.0K
+-rw-r--r-- 1 rubentavares rubentavares  149 Oct 25 20:33 backup.log
+-rw-r--r-- 1 rubentavares rubentavares 2.0K Oct 25 20:33 empresa_2026-10-25_2033.tar.gz.enc
+rubentavares@LAPTOP-MDVICK7D:~$ cat ~/backups/backup.log
+2026-10-25 20:21:06 ERRO falha ao criar o backup
+2026-10-25 20:33:40 OK backup criado: /home/rubentavares/backups/empresa_2026-10-25_2033.tar.gz.enc
+rubentavares@LAPTOP-MDVICK7D:~$ mv ~/.backup_pass ~/.backup_pass.tmp
+rubentavares@LAPTOP-MDVICK7D:~$  ~/scripts/backup_cvtech.sh; echo "Código de saída: $?"
+ERRO: falta o ficheiro de password /home/rubentavares/.backup_pass.
+Código de saída: 1
+rubentavares@LAPTOP-MDVICK7D:~$ mv ~/.backup_pass.tmp ~/.backup_pass
+rubentavares@LAPTOP-MDVICK7D:~$ tail -n 2 ~/backups/backup.log
+2026-10-25 20:33:40 OK backup criado: /home/rubentavares/backups/empresa_2026-10-25_2033.tar.gz.enc
+2026-10-25 20:37:58 ERRO ficheiro de password em falta: /home/rubentavares/.backup_pass
+rubentavares@LAPTOP-MDVICK7D:~$ ls -t ~/backups/*.enc | head -n 1
+/home/rubentavares/backups/empresa_2026-10-25_2033.tar.gz.enc
+rubentavares@LAPTOP-MDVICK7D:~$ openssl enc -d -aes-256-cbc -pbkdf2 -in ~/backups/empresa_2026-10-25_2033.tar.gz.enc -pass file:$HOME/.backup_pass | tar -tzf - | head -n 5
+empresa/
+empresa/rh/
+empresa/rh/relatorio_mar.txt
+empresa/rh/contrato_alice_v1.txt
+empresa/rh/relatorio_fev.txt
+rubentavares@LAPTOP-MDVICK7D:~$ sudo service cron status
+[sudo: authenticate] Password:
+● cron.service - Regular background program processing daemon
+     Loaded: loaded (/usr/lib/systemd/system/cron.service; enabled; preset: enabl>
+     Active: active (running) since Sun 2026-10-25 18:44:37 -01; 1h 58min ago
+ Invocation: 8811bea7e51d438babf0bee7588d266c
+       Docs: man:cron(8)
+   Main PID: 141 (cron)
+      Tasks: 1 (limit: 4503)
+     Memory: 2.1M (peak: 4M)
+        CPU: 156ms
+     CGroup: /system.slice/cron.service
+             └─141 /usr/sbin/cron -f -P
+
+Oct 25 18:44:37 LAPTOP-MDVICK7D systemd[1]: Started cron.service - Regular backgr>
+Oct 25 18:44:37 LAPTOP-MDVICK7D (cron)[141]: cron.service: Referenced but unset e>
+Oct 25 18:44:37 LAPTOP-MDVICK7D cron[141]: (CRON) INFO (pidfile fd = 3)
+Oct 25 18:44:37 LAPTOP-MDVICK7D cron[141]: (CRON) INFO (Running @reboot jobs)
+Oct 25 19:17:01 LAPTOP-MDVICK7D CRON[1170]: pam_unix(cron:session): session opene>
+Oct 25 19:17:01 LAPTOP-MDVICK7D CRON[1172]: (root) CMD (cd / && run-parts --repor>
+Oct 25 19:17:01 LAPTOP-MDVICK7D CRON[1170]: pam_unix(cron:session): session close>
+Oct 25 20:17:01 LAPTOP-MDVICK7D CRON[1362]: pam_unix(cron:session): session opene>
+Oct 25 20:17:01 LAPTOP-MDVICK7D CRON[1364]: (root) CMD (cd / && run-parts --repor>
+Oct 25 20:17:01 LAPTOP-MDVICK7D CRON[1362]: pam_unix(cron:session): session close>
+...skipping...
+● cron.service - Regular background program processing daemon
+     Loaded: loaded (/usr/lib/systemd/system/cron.service; enabled; preset: enabl>
+     Active: active (running) since Sun 2026-10-25 18:44:37 -01; 1h 58min ago
+ Invocation: 8811bea7e51d438babf0bee7588d266c
+       Docs: man:cron(8)
+   Main PID: 141 (cron)
+      Tasks: 1 (limit: 4503)
+     Memory: 2.1M (peak: 4M)
+        CPU: 156ms
+     CGroup: /system.slice/cron.service
+             └─141 /usr/sbin/cron -f -P
+
+Oct 25 18:44:37 LAPTOP-MDVICK7D systemd[1]: Started cron.service - Regular backgr>
+Oct 25 18:44:37 LAPTOP-MDVICK7D (cron)[141]: cron.service: Referenced but unset e>
+Oct 25 18:44:37 LAPTOP-MDVICK7D cron[141]: (CRON) INFO (pidfile fd = 3)
+Oct 25 18:44:37 LAPTOP-MDVICK7D cron[141]: (CRON) INFO (Running @reboot jobs)
+Oct 25 19:17:01 LAPTOP-MDVICK7D CRON[1170]: pam_unix(cron:session): session opene>
+Oct 25 19:17:01 LAPTOP-MDVICK7D CRON[1172]: (root) CMD (cd / && run-parts --repor>
+Oct 25 19:17:01 LAPTOP-MDVICK7D CRON[1170]: pam_unix(cron:session): session close>
+Oct 25 20:17:01 LAPTOP-MDVICK7D CRON[1362]: pam_unix(cron:session): session opene>
+Oct 25 20:17:01 LAPTOP-MDVICK7D CRON[1364]: (root) CMD (cd / && run-parts --repor>
+Oct 25 20:17:01 LAPTOP-MDVICK7D CRON[1362]: pam_unix(cron:session): session close>
+~
+~
+~
+~
+~
+~
+~
+rubentavares@LAPTOP-MDVICK7D:~$ sudo service cron start
+rubentavares@LAPTOP-MDVICK7D:~$ crontab -e
+no crontab for rubentavares - using an empty one
+Select an editor.  To change later, run select-editor again.
+  1. /bin/nano        <---- easiest
+  2. /usr/bin/vim.basic
+  3. /usr/bin/vim.tiny
+  4. /bin/ed
+
+Choose 1-4 [1]: */2 * * * * $HOME/scripts/backup_cvtech.sh > /dev/null 2>&1^O
+Choose 1-4 [1]: nano
+Choose 1-4 [1]: 1
+No modification made
+rubentavares@LAPTOP-MDVICK7D:~$ crontab -e
+no crontab for rubentavares - using an empty one
+crontab: installing new crontab
+rubentavares@LAPTOP-MDVICK7D:~$ crontab -l
+# Edit this file to introduce tasks to be run by cron.
+#
+# Each task to run has to be defined through a single line
+# indicating with different fields when the task will be run
+# and what command to run for the task
+#
+# To define the time you can provide concrete values for
+# minute (m), hour (h), day of month (dom), month (mon),
+# and day of week (dow) or use '*' in these fields (for 'any').
+#
+# Notice that tasks will be started based on the cron's system
+# daemon's notion of time and timezones.
+#
+# Output of the crontab jobs (including errors) is sent through
+# email to the user the crontab file belongs to (unless redirected).
+#
+# For example, you can run a backup of all your user accounts
+# at 5 a.m every week with:
+# 0 5 * * 1 tar -zcf /var/backups/home.tgz /home/
+#
+# For more information see the manual pages of crontab(5) and cron(8)
+#
+# m h  dom mon dow   command
+*/2 * * * * $HOME/scripts/backup_cvtech.sh > /dev/null 2>&1
+rubentavares@LAPTOP-MDVICK7D:~$  sleep 240 && ls -lh ~/backups
+total 20K
+-rw-r--r-- 1 rubentavares rubentavares  537 Oct 25 21:26 backup.log
+-rw-r--r-- 1 rubentavares rubentavares 2.0K Oct 25 20:33 empresa_2026-10-25_2033.tar.gz.enc
+-rw-rw-r-- 1 rubentavares rubentavares 2.0K Oct 25 21:22 empresa_2026-10-25_2122.tar.gz.enc
+-rw-rw-r-- 1 rubentavares rubentavares 2.0K Oct 25 21:24 empresa_2026-10-25_2124.tar.gz.enc
+-rw-rw-r-- 1 rubentavares rubentavares 2.0K Oct 25 21:26 empresa_2026-10-25_2126.tar.gz.enc
+rubentavares@LAPTOP-MDVICK7D:~$ tail -n 3 ~/backups/backup.log
+2026-10-25 21:24:01 OK backup criado: /home/rubentavares/backups/empresa_2026-10-25_2124.tar.gz.enc
+2026-10-25 21:26:02 OK backup criado: /home/rubentavares/backups/empresa_2026-10-25_2126.tar.gz.enc
+2026-10-25 21:28:01 OK backup criado: /home/rubentavares/backups/empresa_2026-10-25_2128.tar.gz.enc
+rubentavares@LAPTOP-MDVICK7D:~$ crontab -e
+crontab: installing new crontab
+rubentavares@LAPTOP-MDVICK7D:~$ crontab -l
+# Edit this file to introduce tasks to be run by cron.
+#
+# Each task to run has to be defined through a single line
+# indicating with different fields when the task will be run
+# and what command to run for the task
+#
+# To define the time you can provide concrete values for
+# minute (m), hour (h), day of month (dom), month (mon),
+# and day of week (dow) or use '*' in these fields (for 'any').
+#
+# Notice that tasks will be started based on the cron's system
+# daemon's notion of time and timezones.
+#
+# Output of the crontab jobs (including errors) is sent through
+# email to the user the crontab file belongs to (unless redirected).
+#
+# For example, you can run a backup of all your user accounts
+# at 5 a.m every week with:
+# 0 5 * * 1 tar -zcf /var/backups/home.tgz /home/
+#
+# For more information see the manual pages of crontab(5) and cron(8)
+#
+# m h  dom mon dow   command
+30 2 * * * $HOME/scripts/backup_cvtech.sh > /dev/null 2>&1
+rubentavares@LAPTOP-MDVICK7D:~$ chmod 700 ~/backups
+rubentavares@LAPTOP-MDVICK7D:~$
